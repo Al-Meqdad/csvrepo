@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-csvrepoassignment-dev-180623-authRole",
+      "UnauthRoleArn": "arn:aws:iam::376353728436:role/amplify-csvrepoassignment-dev-180623-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::376353728436:role/amplify-csvrepoassignment-dev-180623-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-csvrepoassignment-dev-180623-deployment",
+      "UnauthRoleName": "amplify-csvrepoassignment-dev-180623-unauthRole",
+      "StackName": "amplify-csvrepoassignment-dev-180623",
+      "StackId": "arn:aws:cloudformation:us-east-1:376353728436:stack/amplify-csvrepoassignment-dev-180623/93786770-e768-11ed-8eb9-0a2e19fdc313",
+      "AmplifyAppId": "d2x8jltpktxtnq"
+    },
+    "categories": {
+      "auth": {
+        "csvrepoassignment5cd6bbca": {}
+      }
+    }
+  }
+}

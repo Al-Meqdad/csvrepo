@@ -1,0 +1,90 @@
+.view-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .file-info {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .file-data {
+    width: 100%;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  th {
+    background-color: #f5f5f5;
+    text-align: left;
+    font-weight: bold;
+    padding: 12px;
+  }
+  
+  td {
+    padding: 12px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .buttons {
+    display: flex;
+  }
+  
+  .buttons button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .bt1 {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .bt2 {
+    background-color: #008CBA;
+    color: white;
+  }
+  
+  .bt3 {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .file-json-format {
+    width: 50%;
+    margin-left: 50px;
+  }
+  
+  .json-content {
+    height: auto;
+  }
+  
+  .file-json-format h2 {
+    margin-bottom: 20px;
+  }
+  
+  pre {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: scroll;
+    height:400px
+  }
