@@ -159,6 +159,7 @@ function FileList({ groupName, count }) {
             <h2>File Content</h2>
             <div className="json-content">
               <pre>{fileContent}</pre>
+              <button className="view_button bt3" onClick={e=>setFileContent(null)}>Close</button>
             </div>
           </div>
         )}
