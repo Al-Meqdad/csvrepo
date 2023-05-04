@@ -1,50 +1,49 @@
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 40px;
-    Background: linear-gradient(135deg, #c9c9c9 0%, #BDBDBD 100%);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar_container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
-  }
-  
-  .navbar p {
-    font-size: 24px;
-    font-weight: bold;
-    background: -webkit-linear-gradient(#000, #001dff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .navbar button {
-    padding: 8px 16px;
-    background-color: #EFEFEF;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .navbar_container .icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-left: 8px;
-    object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, #c9c9c9 0%, #bdbdbd 100%);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  }
-  
-  .navbar button:hover {
-    background-color: #DDD;
-  }
+.navbar_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+.navbar p {
+  font-size: 24px;
+  font-weight: bold;
+  background: -webkit-linear-gradient(#000, #131313);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar button {
+  padding: 8px 16px;
+  background-color: #efefef;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navbar_container .icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 8px;
+  object-fit: contain;
+}
+
+.navbar button:hover {
+  background-color: #ddd;
+}

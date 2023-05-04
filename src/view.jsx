@@ -1,27 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import Papa from 'papaparse';
-import './view.css';
-import { Auth } from 'aws-amplify';
+import React, { useState, useEffect } from "react";
+import Papa from "papaparse";
+import "./view.css";
+import { Auth } from "aws-amplify";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
-function FileList({groupName,count}) {
+function FileList({ groupName, count }) {
   const [file, setFiles] = useState([]);
   const [fileContent, setFileContent] = useState(null);
-  const view= `${process.env.REACT_APP_BASE}/view`
-  const del= `${process.env.REACT_APP_BASE}/delete`
-  const download= `${process.env.REACT_APP_BASE}/download`
-  
+  const view = `${process.env.REACT_APP_BASE}/view`;
+  const del = `${process.env.REACT_APP_BASE}/delete`;
+  const download = `${process.env.REACT_APP_BASE}/download`;
+  const [deleteMessage, setdeleteMessage] = useState(null);
+  const [messageBox,setMessageBox]=useState(false)
+
   const toggleDelete = async (name) => {
     const token = await Auth.currentSession();
 
     try {
-      const response = await fetch(`${del}?name=${name}`, {
+      await fetch(`${del}?name=${name}`, {
         headers: {
           Authorization: `Bearer ${token.getIdToken().getJwtToken()}`,
         },
-        method: 'DELETE',
+        method: "DELETE",
       });
-      const responseData = await response.json();
-      console.log(responseData)
+
+      setdeleteMessage("File deleted successfully")
+      setMessageBox(true)
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +37,7 @@ function FileList({groupName,count}) {
       const token = await Auth.currentSession();
 
       try {
-        const response = await fetch(view,{
+        const response = await fetch(view, {
           headers: {
             Authorization: `Bearer ${token.getIdToken().getJwtToken()}`,
           },
@@ -55,14 +60,14 @@ function FileList({groupName,count}) {
         headers: {
           Authorization: `Bearer ${token.getIdToken().getJwtToken()}`,
         },
-        method: 'GET',
-        responseType: 'blob',
+        method: "GET",
+        responseType: "blob",
       });
-      const body = await response.json(); 
+      const body = await response.json();
       const file_content = body.body;
-      const fileBlob = new Blob([file_content], { type: 'text/csv' });
+      const fileBlob = new Blob([file_content], { type: "text/csv" });
       const fileUrl = URL.createObjectURL(fileBlob);
-      const downloadLink = document.createElement('a');
+      const downloadLink = document.createElement("a");
       downloadLink.href = fileUrl;
       downloadLink.download = name;
       downloadLink.click();
@@ -70,29 +75,34 @@ function FileList({groupName,count}) {
       console.error(error);
     }
   };
-
   const handleView = async (name) => {
     const token = await Auth.currentSession();
-
+  
     try {
       const response = await fetch(`${download}?name=${name}`, {
         headers: {
           Authorization: `Bearer ${token.getIdToken().getJwtToken()}`,
         },
-        method: 'GET',
-        responseType: 'blob',
+        method: "GET",
       });
-      const blob = await response.blob();
-      Papa.parse(blob, {
-        complete: (results) => {
-          setFileContent(results.data);
-        },
-      });
+  
+      const { statusCode, headers, body } = await response.json();
+      console.log(headers)
+      if (statusCode === 200) {
+        const result = Papa.parse(body, { header: true });
+        setFileContent(JSON.stringify(result.data,null,2));
+      } else {
+        console.error("Request failed with status code:", statusCode);
+      }
     } catch (error) {
       console.error(error);
     }
   };
-  
+
+  const closeModal = () => {
+    setMessageBox(false)
+  };
+
   return (
     <div className="view-container">
       <div className="file-info">
@@ -114,15 +124,30 @@ function FileList({groupName,count}) {
                   <td>{file.size}</td>
                   <td>{file.createdAt}</td>
                   <td className="buttons">
-                    <button className="view_button bt1" onClick={() => handleView(file.name)}>View as JSON</button>
-                    <button className="view_button bt2" onClick={() => handleDownload(file.name)}>Download</button>
-                    {groupName === 'Admins' ? (
-                      <button className="view_button bt3" onClick={() => toggleDelete(file.name)}>Delete</button>
-                    ) : (groupName === 'Read/Write'  || 'Read' ? (
+                    <button
+                      className="view_button bt1"
+                      onClick={() => handleView(file.name)}
+                    >
+                      View as JSON
+                    </button>
+                    <button
+                      className="view_button bt2"
+                      onClick={() => handleDownload(file.name)}
+                    >
+                      Download
+                    </button>
+                    {groupName === "Admins" ? (
+                      <button
+                        className="view_button bt3"
+                        onClick={() => toggleDelete(file.name)}
+                      >
+                        Delete
+                      </button>
+                    ) : groupName === "Read/Write" || "Read" ? (
                       <></>
                     ) : (
                       <></>
-                    ))}
+                    )}
                   </td>
                 </tr>
               ))}
@@ -133,11 +158,22 @@ function FileList({groupName,count}) {
           <div className="file-json-format">
             <h2>File Content</h2>
             <div className="json-content">
-              <pre>{JSON.stringify(fileContent, null, 2)}</pre>
+              <pre>{fileContent}</pre>
             </div>
           </div>
         )}
       </div>
+      <Modal style={{  width: 'auto', height: 'auto', top: 'auto',left: '50%' }} show={messageBox} onHide={closeModal}>
+        <Modal.Header >
+          <Modal.Title>Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{deleteMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

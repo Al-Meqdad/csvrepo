@@ -1,7 +1,7 @@
-import React from 'react';
-import icon from './icon.png';
-import './nav.css'
-function Navbar({signOut, user,groupName}) {
+import React from "react";
+import icon from "./icon.png";
+import "./nav.css";
+function Navbar({ signOut, user, groupName }) {
   return (
     <div className="navbar">
       <div className="navbar_container">
